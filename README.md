@@ -1,5 +1,5 @@
 # Info
-- It's my first game in go and i took big inspiration from made by Zach Gage and Kurt Bieg and even made a copy of the game so all credit to him.
+- It's my first game in go and i took big inspiration from Scoundrel made by Zach Gage and Kurt Bieg and even made a copy of the game so all credit to him.
 ## Rules of classic Scoundrel 
 Scoundrel is a single-player roguelike card game played with a standard deck of cards, where you start with 20 health and try to clear the dungeon deck without dying. 
 ### Setup

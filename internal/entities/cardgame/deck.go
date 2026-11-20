@@ -7,13 +7,13 @@ import (
 	"sort"
 )
 
-// Deck rappresenta un mazzo di carte.
+// Deck represents a deck of cards.
 type Deck struct {
 	cards      []Card
 	jokerCount int
 }
 
-// NewDeck crea e mescola un mazzo standard di 52 carte.
+// NewDeck creates and shuffles a standard 52-card deck.
 func NewDeck() *Deck {
 	deck := &Deck{cards: make([]Card, 0, 52)}
 	for value := 1; value <= 13; value++ {
@@ -24,22 +24,22 @@ func NewDeck() *Deck {
 	return deck
 }
 
-// String restituisce una rappresentazione testuale del mazzo.
+// String returns a textual representation of the deck.
 func (d *Deck) String() string {
 	return fmt.Sprintf("cards: %v", d.cards)
 }
 
-// Cards restituisce una copia delle carte nel mazzo.
+// Cards returns a copy of the cards in the deck.
 func (d *Deck) Cards() []Card {
-	return append([]Card(nil), d.cards...)//crea una lista di card nulla e gli passa le card dentro cards una a una
+	return append([]Card(nil), d.cards...)// creates a nil slice and copies cards into it one by one
 }
 
-// CardCount restituisce il numero di carte nel mazzo.
+// CardCount returns the number of cards in the deck.
 func (d *Deck) CardCount() int {
 	return len(d.cards)
 }
 
-// Sort ordina le carte prima per seme, poi per valore. TODO bisogna fixarlo non funziona.
+// Sort orders cards by suit then value.
 func (d *Deck) Sort() {
 	order := map[string]int{"heart": 0, "diamonds": 1, "spades": 2, "clubs": 3}
 	sort.Slice(d.cards, func(i, j int) bool {
@@ -58,12 +58,12 @@ func (d *Deck) Sort() {
 	})
 }
 
-// AddCard aggiunge una carta al mazzo.
+// AddCard adds a card to the deck.
 func (d *Deck) AddCard(card Card) {
 	d.cards = append(d.cards, card)
 }
 
-// Remove rimuove la carta indicata e segnala se è stata trovata.
+// Remove removes the specified card and reports whether it was found.
 func (d *Deck) Remove(value int, suit string) bool {
 	for i, card := range d.cards {
 		if card.Value == value && card.Suit == suit {
@@ -74,7 +74,7 @@ func (d *Deck) Remove(value int, suit string) bool {
 	return false
 }
 
-// DrawSpecificCard estrae la carta richiesta oppure restituisce un errore.
+// DrawSpecificCard draws the requested card or returns an error.
 func (d *Deck) DrawSpecificCard(value int, suit string) (Card, error) {
 	for i, card := range d.cards {
 		if card.Value == value && card.Suit == suit {
@@ -85,7 +85,7 @@ func (d *Deck) DrawSpecificCard(value int, suit string) (Card, error) {
 	return Card{}, errors.New("card not in deck")
 }
 
-// PopFirst estrae la prima carta, o restituisce un errore se il mazzo è vuoto.
+// PopFirst draws the first card, or returns an error if the deck is empty.
 func (d *Deck) PopFirst() (Card, error) {
 	if len(d.cards) == 0 {
 		return Card{}, errors.New("deck is empty")
@@ -96,14 +96,14 @@ func (d *Deck) PopFirst() (Card, error) {
 	return card, nil
 }
 
-// Shuffle mescola le carte.
+// Shuffle shuffles the cards.
 func (d *Deck) Shuffle() {
 	rand.Shuffle(len(d.cards), func(i, j int) {
 		d.cards[i], d.cards[j] = d.cards[j], d.cards[i]
 	})
 }
 
-// CreateJoker crea al massimo due jolly.
+// CreateJoker creates at most two jokers.
 func (d *Deck) CreateJoker() (Card, error) {
 	if d.jokerCount >= 2 {
 		return Card{}, errors.New("all jokers already created")
@@ -114,7 +114,7 @@ func (d *Deck) CreateJoker() (Card, error) {
 	return Card{Value: 0, Suit: "heart"}, nil
 }
 
-// AddJoker crea un jolly e lo aggiunge al mazzo.
+// AddJoker creates a joker and adds it to the deck.
 func (d *Deck) AddJoker() error {
 	joker, err := d.CreateJoker()
 	if err != nil {

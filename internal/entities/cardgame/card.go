@@ -10,6 +10,7 @@ type Card struct{
     Suit string
 }
 
+// String returns a readable representation of the card.
 func (c Card) String() string{
     var name string
     switch c.Value {
